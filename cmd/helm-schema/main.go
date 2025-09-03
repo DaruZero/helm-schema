@@ -14,8 +14,8 @@ import (
 	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
 
-	"github.com/dadav/helm-schema/pkg/chart"
-	"github.com/dadav/helm-schema/pkg/schema"
+	"github.com/DaruZero/helm-schema/pkg/chart"
+	"github.com/DaruZero/helm-schema/pkg/schema"
 )
 
 func searchFiles(chartSearchRoot, startPath, fileName string, dependenciesFilter map[string]bool, queue chan<- string, errs chan<- error) {

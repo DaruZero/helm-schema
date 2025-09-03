@@ -3,7 +3,7 @@ package schema
 import (
 	"testing"
 
-	"github.com/dadav/helm-schema/pkg/chart"
+	"github.com/DaruZero/helm-schema/pkg/chart"
 	"github.com/stretchr/testify/assert"
 )
 

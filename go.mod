@@ -1,4 +1,4 @@
-module github.com/dadav/helm-schema
+module github.com/DaruZero/helm-schema
 
 go 1.23.1
 

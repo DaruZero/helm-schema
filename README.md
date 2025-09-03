@@ -3,12 +3,12 @@
 <p align="center">
   <img src="images/logo.png" width="400" />
   <br />
-  <a href="https://github.com/dadav/helm-schema/releases"><img src="https://img.shields.io/github/release/dadav/helm-schema.svg" alt="Latest Release"></a>
-  <a href="https://pkg.go.dev/github.com/dadav/helm-schema?tab=doc"><img src="https://godoc.org/github.com/golang/gddo?status.svg" alt="Go Docs"></a>
-  <a href="https://github.com/dadav/helm-schema/actions"><img src="https://img.shields.io/github/actions/workflow/status/dadav/helm-schema/build_and_test.yml" alt="Build Status"></a>
+  <a href="https://github.com/DaruZero/helm-schema/releases"><img src="https://img.shields.io/github/release/DaruZero/helm-schema.svg" alt="Latest Release"></a>
+  <a href="https://pkg.go.dev/github.com/DaruZero/helm-schema?tab=doc"><img src="https://godoc.org/github.com/golang/gddo?status.svg" alt="Go Docs"></a>
+  <a href="https://github.com/DaruZero/helm-schema/actions"><img src="https://img.shields.io/github/actions/workflow/status/DaruZero/helm-schema/build_and_test.yml" alt="Build Status"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT LICENSE"></a>
   <a href="https://github.com/pre-commit/pre-commit"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit" alt="pre-commit" style="max-width:100%;"></a>
-  <a href="https://goreportcard.com/badge/github.com/dadav/helm-schema"><img src="https://goreportcard.com/badge/github.com/dadav/helm-schema" alt="Go Report"></a>
+  <a href="https://goreportcard.com/badge/github.com/DaruZero/helm-schema"><img src="https://goreportcard.com/badge/github.com/DaruZero/helm-schema" alt="Go Report"></a>
 </p>
 
 <p align="center">This tool tries to help you to easily create some nice <a href="https://json-schema.org/" target="_blank"><strong>JSON schema</strong></a> for your helm chart.</p>
@@ -27,7 +27,7 @@ will be created.
 Via `go` install:
 
 ```sh
-go install github.com/dadav/helm-schema/cmd/helm-schema@latest
+go install github.com/DaruZero/helm-schema/cmd/helm-schema@latest
 ```
 
 From `aur`:
@@ -39,13 +39,13 @@ paru -S helm-schema
 Via `podman/docker`:
 
 ```sh
-podman run --rm -v $PWD:/home/helm-schema ghcr.io/dadav/helm-schema:latest
+podman run --rm -v $PWD:/home/helm-schema ghcr.io/daruzero/helm-schema:latest
 ```
 
 As `helm plugin`:
 
 ```sh
-helm plugin install https://github.com/dadav/helm-schema
+helm plugin install https://github.com/DaruZero/helm-schema
 ```
 
 ## Usage
@@ -799,4 +799,4 @@ namespace: foo
 
 ## License
 
-[MIT](https://github.com/dadav/helm-schema/blob/main/LICENSE)
+[MIT](https://github.com/DaruZero/helm-schema/blob/main/LICENSE)
