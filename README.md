@@ -148,8 +148,9 @@ foo: bar
 | [`$ref`](#ref) | Accepts an URI to a valid `jsonschema`. Extend the schema for the current key | Takes an URI (or relative file) |
 | [`minLength`](#minlength) | Minimum string length. | Takes an `integer`. Must be smaller or equal than `maxLength` (if used) |
 | [`maxLength`](#maxlength) | Maximum string length. | Takes an `integer`. Must be greater or equal than `minLength` (if used) |
-| [`minItems`](#minItems) | Minimum length of an array. | Takes an `integer`. Must be smaller or equal than `maxItems` (if used) |
-| [`maxItems`](#maxItems) | Maximum length of an array. | Takes an `integer`. Must be greater or equal than `minItems` (if used) |
+| [`minItems`](#minitems) | Minimum length of an array. | Takes an `integer`. Must be smaller or equal than `maxItems` (if used) |
+| [`maxItems`](#maxitems) | Maximum length of an array. | Takes an `integer`. Must be greater or equal than `minItems` (if used) |
+| [`$comment`](#comment) | Simple comment for schema readers. | Takes a string |
 
 ## Validation & completion
 
@@ -793,6 +794,17 @@ is the same as
 # @schema
 # type: string
 # minLength: 10
+# @schema
+namespace: foo
+```
+
+#### $comment
+
+Comments from schema authors to readers or maintainers of the schema.
+
+```yaml
+# @schema
+# $comment: this is a comment
 # @schema
 namespace: foo
 ```

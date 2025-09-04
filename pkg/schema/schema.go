@@ -13,8 +13,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/dadav/go-jsonpointer"
 	"github.com/DaruZero/helm-schema/pkg/util"
+	"github.com/dadav/go-jsonpointer"
 	"github.com/norwoodj/helm-docs/pkg/helm"
 	"github.com/santhosh-tekuri/jsonschema/v6"
 	log "github.com/sirupsen/logrus"
@@ -244,20 +244,21 @@ type Schema struct {
 	AnyOf                []*Schema              `yaml:"anyOf,omitempty"                json:"anyOf,omitempty"`
 	AllOf                []*Schema              `yaml:"allOf,omitempty"                json:"allOf,omitempty"`
 	OneOf                []*Schema              `yaml:"oneOf,omitempty"                json:"oneOf,omitempty"`
-	Not                  *Schema                `yaml:"not,omitempty"                json:"not,omitempty"`
+	Not                  *Schema                `yaml:"not,omitempty"                  json:"not,omitempty"`
 	Examples             []string               `yaml:"examples,omitempty"             json:"examples,omitempty"`
 	Enum                 []string               `yaml:"enum,omitempty"                 json:"enum,omitempty"`
 	HasData              bool                   `yaml:"-"                              json:"-"`
 	Deprecated           bool                   `yaml:"deprecated,omitempty"           json:"deprecated,omitempty"`
-	ReadOnly             bool                   `yaml:"readOnly,omitempty"           json:"readOnly,omitempty"`
-	WriteOnly            bool                   `yaml:"writeOnly,omitempty"           json:"writeOnly,omitempty"`
+	ReadOnly             bool                   `yaml:"readOnly,omitempty"             json:"readOnly,omitempty"`
+	WriteOnly            bool                   `yaml:"writeOnly,omitempty"            json:"writeOnly,omitempty"`
 	Required             BoolOrArrayOfString    `yaml:"required,omitempty"             json:"required,omitempty"`
 	CustomAnnotations    map[string]interface{} `yaml:"-"                              json:",omitempty"`
-	MinLength            *int                   `yaml:"minLength,omitempty"              json:"minLength,omitempty"`
-	MaxLength            *int                   `yaml:"maxLength,omitempty"              json:"maxLength,omitempty"`
-	MinItems             *int                   `yaml:"minItems,omitempty"              json:"minItems,omitempty"`
-	MaxItems             *int                   `yaml:"maxItems,omitempty"              json:"maxItems,omitempty"`
+	MinLength            *int                   `yaml:"minLength,omitempty"            json:"minLength,omitempty"`
+	MaxLength            *int                   `yaml:"maxLength,omitempty"            json:"maxLength,omitempty"`
+	MinItems             *int                   `yaml:"minItems,omitempty"             json:"minItems,omitempty"`
+	MaxItems             *int                   `yaml:"maxItems,omitempty"             json:"maxItems,omitempty"`
 	UniqueItems          bool                   `yaml:"uniqueItems,omitempty"          json:"uniqueItems,omitempty"`
+	Comment              string                 `yaml:"$comment,omitempty"             json:"$comment,omitempty"`
 }
 
 func NewSchema(schemaType string) *Schema {
