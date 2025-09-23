@@ -21,6 +21,7 @@ func TestWorker(t *testing.T) {
 		helmDocsCompatibilityMode bool
 		dontRemoveHelmDocsPrefix  bool
 		dontAddGlobal             bool
+		offlineMode               bool
 		skipAutoGenerationConfig  *SkipAutoGenerationConfig
 		outFile                   string
 		expectedErrors            bool
@@ -130,6 +131,7 @@ key1: value1
 				tt.helmDocsCompatibilityMode,
 				tt.dontRemoveHelmDocsPrefix,
 				tt.dontAddGlobal,
+				tt.offlineMode,
 				tt.valueFileNames,
 				tt.skipAutoGenerationConfig,
 				tt.outFile,

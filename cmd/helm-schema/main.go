@@ -78,6 +78,7 @@ func exec(cmd *cobra.Command, _ []string) error {
 	dependenciesFilter := viper.GetStringSlice("dependencies-filter")
 	dependenciesFilterMap := make(map[string]bool)
 	dontAddGlobal := viper.GetBool("dont-add-global")
+	offlineMode := viper.GetBool("offline-mode")
 	for _, dep := range dependenciesFilter {
 		dependenciesFilterMap[dep] = true
 	}
@@ -121,6 +122,7 @@ func exec(cmd *cobra.Command, _ []string) error {
 				helmDocsCompatibilityMode,
 				dontRemoveHelmDocsPrefix,
 				dontAddGlobal,
+				offlineMode,
 				valueFileNames,
 				skipConfig,
 				outFile,

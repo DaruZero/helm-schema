@@ -150,6 +150,8 @@ func RemoveCommentsFromYaml(reader io.Reader) ([]byte, error) {
 
 // IsRelativeFile checks if the given string is a relative path to a file
 func IsRelativeFile(root, relPath string) (string, error) {
+	// remove URI schema
+	relPath = strings.TrimPrefix(relPath, "file://")
 	if !path.IsAbs(relPath) {
 		foo := path.Join(path.Dir(root), relPath)
 		_, err := os.Stat(foo)

@@ -21,7 +21,7 @@ type Result struct {
 }
 
 func Worker(
-	dryRun, uncomment, addSchemaReference, keepFullComment, helmDocsCompatibilityMode, dontRemoveHelmDocsPrefix, dontAddGlobal bool,
+	dryRun, uncomment, addSchemaReference, keepFullComment, helmDocsCompatibilityMode, dontRemoveHelmDocsPrefix, dontAddGlobal, offlineMode bool,
 	valueFileNames []string,
 	skipAutoGenerationConfig *SkipAutoGenerationConfig,
 	outFile string,
@@ -102,6 +102,15 @@ func Worker(
 		if uncomment {
 			// Remove comments from valid yaml
 			content, err = util.RemoveCommentsFromYaml(bytes.NewReader(content))
+			if err != nil {
+				result.Errors = append(result.Errors, err)
+				results <- result
+				continue
+			}
+		}
+		if offlineMode {
+			// Download remote schmas locally and update $ref URI
+			content, err = ResolveRemoteRefs(bytes.NewReader(content), chartBasePath)
 			if err != nil {
 				result.Errors = append(result.Errors, err)
 				results <- result

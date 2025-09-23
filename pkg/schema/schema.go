@@ -870,8 +870,13 @@ func YamlToSchema(
 				description = prefixRemover.ReplaceAllString(description, "")
 			}
 
-			if keyNodeSchema.Ref != "" || len(keyNodeSchema.PatternProperties) > 0 {
-				// Handle $ref in main schema and pattern properties
+			// Handle $ref for local files
+			if keyNodeSchema.Ref != "" ||
+				keyNodeSchema.Items != nil ||
+				len(keyNodeSchema.PatternProperties) > 0 ||
+				len(keyNodeSchema.AllOf) > 0 ||
+				len(keyNodeSchema.AnyOf) > 0 ||
+				len(keyNodeSchema.OneOf) > 0 {
 				handleSchemaRefs(&keyNodeSchema, valuesPath)
 			}
 
@@ -1065,7 +1070,8 @@ func castNodeValueByType(rawValue string, fieldType StringOrArrayOfString) any {
 }
 
 // handleSchemaRefs processes and resolves JSON Schema references ($ref) within a schema.
-// It handles both direct schema references and references within patternProperties.
+// It handles both direct and nested schema references.
+// It will keep the original $comment and definition if they were set
 // For each reference:
 // - If it's a relative file path, it attempts to load and parse the referenced schema
 // - If it includes a JSON pointer (#/path/to/schema), it extracts the specific schema section
@@ -1078,6 +1084,7 @@ func castNodeValueByType(rawValue string, fieldType StringOrArrayOfString) any {
 // The function will log.Fatal on any critical errors (file not found, invalid JSON, etc.)
 // and log.Debug for non-critical issues (e.g., non-relative paths that may be handled elsewhere)
 func handleSchemaRefs(schema *Schema, valuesPath string) {
+	originalSchema := *schema
 	// Handle main schema $ref
 	if schema.Ref != "" {
 		refParts := strings.Split(schema.Ref, "#")
@@ -1113,6 +1120,13 @@ func handleSchemaRefs(schema *Schema, valuesPath string) {
 				}
 				*schema = relSchema
 				schema.HasData = true
+				// keep original comment and description if existing
+				if originalSchema.Description != "" {
+					schema.Description = originalSchema.Description
+				}
+				if originalSchema.Comment != "" {
+					schema.Comment = originalSchema.Comment
+				}
 			} else {
 				log.Fatal(err)
 			}
@@ -1127,6 +1141,35 @@ func handleSchemaRefs(schema *Schema, valuesPath string) {
 			if subSchema.Ref != "" {
 				handleSchemaRefs(subSchema, valuesPath)
 				schema.PatternProperties[pattern] = subSchema // Update the original schema in the map
+			}
+		}
+	}
+
+	if schema.Items != nil && schema.Items.Ref != "" {
+		handleSchemaRefs(schema.Items, valuesPath)
+	}
+
+	if len(schema.AllOf) > 0 {
+		for pattern, subSchema := range schema.AllOf {
+			if subSchema.Ref != "" {
+				handleSchemaRefs(subSchema, valuesPath)
+				schema.AllOf[pattern] = subSchema // Update the original schema in the map
+			}
+		}
+	}
+	if len(schema.AnyOf) > 0 {
+		for pattern, subSchema := range schema.AnyOf {
+			if subSchema.Ref != "" {
+				handleSchemaRefs(subSchema, valuesPath)
+				schema.AnyOf[pattern] = subSchema // Update the original schema in the map
+			}
+		}
+	}
+	if len(schema.OneOf) > 0 {
+		for pattern, subSchema := range schema.OneOf {
+			if subSchema.Ref != "" {
+				handleSchemaRefs(subSchema, valuesPath)
+				schema.OneOf[pattern] = subSchema // Update the original schema in the map
 			}
 		}
 	}
