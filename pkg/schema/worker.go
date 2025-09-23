@@ -110,7 +110,7 @@ func Worker(
 		}
 		if offlineMode {
 			// Download remote schmas locally and update $ref URI
-			content, err = ResolveRemoteRefs(bytes.NewReader(content), chartBasePath)
+			content, err = resolveRemoteRefs(bytes.NewReader(content), chartBasePath)
 			if err != nil {
 				result.Errors = append(result.Errors, err)
 				results <- result
